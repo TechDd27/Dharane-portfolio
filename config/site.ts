@@ -33,7 +33,7 @@ export const siteConfig = {
   links: {
     email: "dharanedharanm@gmail.com",
     linkedin: "https://linkedin.com/in/ddmk",
-    github: "https://github.com/dharanedharan",
+    github: "https://github.com/TechDd27",
     resume: "/resume.pdf",
   },
 
