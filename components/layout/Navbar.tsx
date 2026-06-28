@@ -9,11 +9,40 @@ import { ThemeToggle } from "../ui/ThemeToggle";
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Auto-close mobile menu when viewport reaches desktop width
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) setIsMobileOpen(false);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Active section highlight via IntersectionObserver
+  useEffect(() => {
+    const ids = siteConfig.nav.map((n) => n.href.replace("#", ""));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible.length > 0) setActiveSection(visible[0].target.id);
+      },
+      { threshold: 0.25, rootMargin: "-70px 0px -30% 0px" }
+    );
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -32,24 +61,37 @@ export function Navbar() {
           Dharane
         </a>
 
-        {/* Nav links — center, spread full width */}
+        {/* Desktop nav links — hidden on mobile, always visible as a row on md+ */}
         <div className="hidden md:flex items-center gap-6 lg:gap-8 flex-1 justify-center">
-          {siteConfig.nav.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="text-[11px] font-bold uppercase tracking-[2px] transition-colors duration-150 whitespace-nowrap"
-              style={{ color: "hsl(var(--muted-foreground))" }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.color = "hsl(var(--accent))";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.color = "hsl(var(--muted-foreground))";
-              }}
-            >
-              {item.label}
-            </a>
-          ))}
+          {siteConfig.nav.map((item) => {
+            const id = item.href.replace("#", "");
+            const isActive = activeSection === id;
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                className="relative text-[11px] font-bold uppercase tracking-[2px] transition-colors duration-150 whitespace-nowrap pb-1"
+                style={{ color: isActive ? "hsl(var(--accent))" : "hsl(var(--muted-foreground))" }}
+                onMouseEnter={(e) =>
+                  ((e.currentTarget as HTMLElement).style.color = "hsl(var(--accent))")
+                }
+                onMouseLeave={(e) => {
+                  if (!isActive)
+                    (e.currentTarget as HTMLElement).style.color = "hsl(var(--muted-foreground))";
+                }}
+              >
+                {item.label}
+                {isActive && (
+                  <motion.div
+                    layoutId="nav-underline"
+                    className="absolute -bottom-0.5 left-0 right-0 h-px"
+                    style={{ background: "hsl(var(--accent))" }}
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+              </a>
+            );
+          })}
         </div>
 
         {/* Right actions */}

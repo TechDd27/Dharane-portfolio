@@ -46,15 +46,14 @@ export function Hero() {
             className="md:hidden mb-8 flex justify-center"
           >
             <div
-              className="w-32 h-32 rounded-full overflow-hidden"
+              className="relative w-[140px] h-[140px] rounded-full overflow-hidden shrink-0"
               style={{ border: "3px solid hsl(var(--accent))" }}
             >
               <Image
                 src="/images/headshot.jpg"
                 alt="Dharane Dharan M"
-                width={128}
-                height={128}
-                className="object-cover object-top w-full h-full"
+                fill
+                className="object-cover object-[center_10%]"
                 priority
               />
             </div>
