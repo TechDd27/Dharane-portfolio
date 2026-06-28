@@ -3,6 +3,8 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { Mail, Copy, Check } from "lucide-react";
+import { siteConfig } from "../../config/site";
+import { SectionHeading } from "../ui/SectionHeading";
 
 function LinkedinIcon({ className }: { className?: string }) {
   return (
@@ -19,8 +21,7 @@ function GithubIcon({ className }: { className?: string }) {
     </svg>
   );
 }
-import { siteConfig } from "../../config/site";
-import { SectionHeading } from "../ui/SectionHeading";
+
 export function Contact() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -34,66 +35,71 @@ export function Contact() {
 
   return (
     <section id="contact" ref={ref} className="section">
-      <SectionHeading title="Contact" subtitle="Let's connect" />
+      <SectionHeading title="Contact" subtitle="Send a Raven" />
 
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6 }}
-        className="mt-12 max-w-lg mx-auto text-center"
+        transition={{ duration: 0.7 }}
+        className="mt-16 max-w-lg mx-auto text-center"
       >
-        <p className="text-muted-foreground text-lg mb-8">
-          I'm currently open to Supply Chain Analyst, Operations Analyst, and Data Analyst opportunities.
-          Feel free to reach out!
+        <p className="text-base leading-relaxed mb-10" style={{ color: "hsl(var(--muted-foreground))" }}>
+          I&apos;m currently open to Supply Chain Analyst, Operations Analyst, and Data Analyst opportunities.
+          Send a raven — I respond to every message.
         </p>
 
+        {/* Email copy button */}
         <button
           onClick={copyEmail}
-          className="inline-flex items-center gap-3 px-6 py-4 rounded-lg bg-surface border border-border card-hover mx-auto"
+          className="heraldic-card inline-flex items-center gap-3 px-6 py-4 w-full max-w-sm mx-auto cursor-pointer transition-all"
         >
-          <Mail className="w-5 h-5 text-accent" />
-          <span className="text-foreground font-medium">{siteConfig.links.email}</span>
-          {copied ? (
-            <Check className="w-4 h-4 text-success" />
-          ) : (
-            <Copy className="w-4 h-4 text-muted-foreground" />
-          )}
+          <Mail className="w-4 h-4 shrink-0" style={{ color: "hsl(var(--accent))" }} />
+          <span className="font-cinzel text-sm font-bold flex-1 text-left" style={{ color: "hsl(var(--foreground))" }}>
+            {siteConfig.links.email}
+          </span>
+          {copied
+            ? <Check className="w-4 h-4 shrink-0" style={{ color: "hsl(var(--success))" }} />
+            : <Copy className="w-4 h-4 shrink-0" style={{ color: "hsl(var(--muted-foreground))" }} />
+          }
         </button>
 
         {copied && (
           <motion.p
             initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-success text-sm mt-3"
+            className="font-cinzel text-xs uppercase tracking-widest mt-3"
+            style={{ color: "hsl(var(--success))" }}
           >
-            Copied to clipboard!
+            ✦ Raven dispatched ✦
           </motion.p>
         )}
 
-        <div className="flex items-center justify-center gap-4 mt-8">
-          <a
-            href={siteConfig.links.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 rounded-lg bg-surface border border-border text-muted-foreground hover:text-accent hover:border-accent transition-colors"
-          >
-            <LinkedinIcon className="w-5 h-5" />
-          </a>
-          <a
-            href={siteConfig.links.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 rounded-lg bg-surface border border-border text-muted-foreground hover:text-accent hover:border-accent transition-colors"
-          >
-            <GithubIcon className="w-5 h-5" />
-          </a>
-          <a
-            href="/resume.pdf"
-            download
-            className="p-3 rounded-lg bg-surface border border-border text-muted-foreground hover:text-accent hover:border-accent transition-colors"
-          >
-            <Mail className="w-5 h-5" />
-          </a>
+        {/* Social links */}
+        <div className="flex items-center justify-center gap-4 mt-10">
+          {[
+            { href: siteConfig.links.linkedin, icon: <LinkedinIcon className="w-5 h-5" />, label: "LinkedIn" },
+            { href: siteConfig.links.github, icon: <GithubIcon className="w-5 h-5" />, label: "GitHub" },
+          ].map(({ href, icon, label }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="heraldic-card p-3.5 transition-all"
+              style={{ color: "hsl(var(--muted-foreground))" }}
+            >
+              {icon}
+            </a>
+          ))}
+        </div>
+
+        {/* Ornamental closing */}
+        <div className="flex items-center justify-center gap-3 mt-14">
+          <div className="h-px w-16" style={{ background: "linear-gradient(to right, transparent, hsl(var(--accent) / 0.4))" }} />
+          <span className="font-cinzel text-[10px] tracking-[3px] uppercase" style={{ color: "hsl(var(--accent) / 0.6)" }}>
+            House Dharane
+          </span>
+          <div className="h-px w-16" style={{ background: "linear-gradient(to left, transparent, hsl(var(--accent) / 0.4))" }} />
         </div>
       </motion.div>
     </section>

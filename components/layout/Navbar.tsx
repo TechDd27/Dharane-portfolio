@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Download } from "lucide-react";
+import { Menu, X, Scroll } from "lucide-react";
 import { siteConfig } from "../../config/site";
 import { ThemeToggle } from "../ui/ThemeToggle";
 
@@ -19,24 +19,34 @@ export function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "glass shadow-sm" : "bg-transparent"
+        isScrolled ? "glass" : "bg-transparent"
       }`}
     >
       <nav className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#" className="font-bold text-foreground text-lg tracking-tight">
-          {siteConfig.name.split(" ")}
-          <span className="text-accent">.</span>
+        {/* Logo */}
+        <a href="#" className="flex items-center gap-2 group">
+          <span
+            className="font-cinzel font-black text-xl tracking-widest gradient-text"
+          >
+            DDM
+          </span>
+          <span className="w-1 h-1 rounded-full" style={{ background: "hsl(var(--accent))" }} />
         </a>
 
+        {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-8">
           {siteConfig.nav.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors relative group"
+              className="font-cinzel text-xs tracking-[2px] uppercase transition-colors relative group"
+              style={{ color: "hsl(var(--muted-foreground))" }}
             >
               {item.label}
-              <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-accent transition-all group-hover:w-full" />
+              <span
+                className="absolute -bottom-1 left-0 w-0 h-px transition-all group-hover:w-full"
+                style={{ background: "hsl(var(--accent))" }}
+              />
             </a>
           ))}
         </div>
@@ -46,9 +56,13 @@ export function Navbar() {
           <a
             href="/resume.pdf"
             download
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium bg-accent text-accent-foreground hover:bg-accent-hover transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-sm font-cinzel font-bold text-xs uppercase tracking-widest transition-all glow-gold"
+            style={{
+              background: "hsl(var(--accent))",
+              color: "hsl(var(--accent-foreground))",
+            }}
           >
-            <Download className="w-3.5 h-3.5" />
+            <Scroll className="w-3 h-3" />
             Resume
           </a>
         </div>
@@ -64,26 +78,29 @@ export function Navbar() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="md:hidden bg-surface border-b border-border px-6 py-4"
+            className="md:hidden border-b"
+            style={{ background: "hsl(var(--surface) / 0.95)", borderColor: "hsl(var(--border))", backdropFilter: "blur(16px)" }}
           >
             {siteConfig.nav.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsMobileOpen(false)}
-                className="block py-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="block px-6 py-3.5 font-cinzel text-xs tracking-[2px] uppercase border-b transition-colors"
+                style={{ borderColor: "hsl(var(--border) / 0.5)", color: "hsl(var(--muted-foreground))" }}
               >
                 {item.label}
               </a>
             ))}
-            <div className="flex items-center gap-3 pt-4 border-t border-border mt-2">
+            <div className="flex items-center gap-3 px-6 py-4">
               <ThemeToggle />
               <a
                 href="/resume.pdf"
                 download
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium bg-accent text-accent-foreground"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-sm font-cinzel font-bold text-xs uppercase tracking-widest glow-gold"
+                style={{ background: "hsl(var(--accent))", color: "hsl(var(--accent-foreground))" }}
               >
-                <Download className="w-3.5 h-3.5" /> Resume
+                <Scroll className="w-3 h-3" /> Resume
               </a>
             </div>
           </motion.div>

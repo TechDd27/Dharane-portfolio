@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, Cinzel } from "next/font/google";
 import { ThemeProvider } from "../components/providers/ThemeProvider";
 import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
@@ -12,14 +12,15 @@ const inter = Inter({
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const cinzel = Cinzel({
   subsets: ["latin"],
-  variable: "--font-mono",
+  variable: "--font-cinzel",
+  weight: ["400", "700", "900"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Dharane Dharan M - Portfolio",
+  title: "Dharane Dharan M — Portfolio",
   description: "Supply Chain Analyst. Operations Engineer. Data-Driven Problem Solver.",
 };
 
@@ -28,12 +29,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const fontClasses = inter.variable + " " + jetbrainsMono.variable;
-
   return (
-    <html lang="en" suppressHydrationWarning className={fontClasses}>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${cinzel.variable}`}>
       <body className="font-sans">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <ScrollProgress />
           <Navbar />
           <main className="min-h-screen">{children}</main>

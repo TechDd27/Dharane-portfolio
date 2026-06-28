@@ -4,33 +4,35 @@
 
 @layer base {
   :root {
-    --background: 240 20% 99%;
-    --foreground: 240 15% 8%;
-    --surface: 0 0% 100%;
-    --border: 240 8% 88%;
-    --muted: 240 10% 95%;
-    --muted-foreground: 240 6% 42%;
-    --accent: 258 85% 65%;
-    --accent-hover: 258 85% 55%;
-    --accent-foreground: 0 0% 100%;
-    --accent-glow: 258 85% 65%;
-    --success: 142 71% 45%;
-    --gold: 38 90% 58%;
+    /* Light: Aged Parchment */
+    --background: 40 35% 95%;
+    --foreground: 25 40% 10%;
+    --surface: 40 28% 99%;
+    --border: 38 25% 78%;
+    --muted: 40 20% 91%;
+    --muted-foreground: 30 22% 42%;
+    --accent: 43 88% 44%;
+    --accent-hover: 43 88% 36%;
+    --accent-foreground: 40 35% 95%;
+    --success: 142 55% 40%;
+    --gold: 43 88% 44%;
+    --crimson: 0 65% 38%;
   }
 
   .dark {
-    --background: 240 12% 5%;
-    --foreground: 240 8% 92%;
-    --surface: 240 10% 8%;
-    --border: 240 8% 14%;
-    --muted: 240 10% 9%;
-    --muted-foreground: 240 5% 62%;
-    --accent: 258 80% 68%;
-    --accent-hover: 258 80% 78%;
-    --accent-foreground: 0 0% 100%;
-    --accent-glow: 258 80% 68%;
-    --success: 142 71% 55%;
-    --gold: 38 90% 62%;
+    /* Dark: Castle Walls */
+    --background: 222 22% 4%;
+    --foreground: 38 28% 82%;
+    --surface: 222 18% 7%;
+    --border: 35 16% 14%;
+    --muted: 222 16% 8%;
+    --muted-foreground: 38 14% 50%;
+    --accent: 43 88% 54%;
+    --accent-hover: 43 88% 64%;
+    --accent-foreground: 222 22% 4%;
+    --success: 142 55% 52%;
+    --gold: 43 88% 54%;
+    --crimson: 0 65% 48%;
   }
 
   * {
@@ -50,16 +52,17 @@
   }
 
   ::selection {
-    background-color: hsl(var(--accent) / 0.2);
+    background-color: hsl(var(--accent) / 0.25);
     color: hsl(var(--foreground));
   }
 }
 
 @layer components {
+  /* Glassmorphism navbar */
   .glass {
-    background-color: hsl(var(--background) / 0.8);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background-color: hsl(var(--background) / 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid hsl(var(--border));
   }
 
@@ -70,74 +73,123 @@
     padding: 5rem 1.5rem;
   }
 
+  /* Card with GoT hover: gold glow */
   .card-hover {
-    transition: all 220ms ease;
+    transition: all 250ms ease;
   }
 
   .card-hover:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 30px -5px hsl(var(--accent-glow) / 0.15),
-                0 4px 12px -2px hsl(var(--accent-glow) / 0.08);
-    border-color: hsl(var(--accent) / 0.35);
+    box-shadow:
+      0 0 0 1px hsl(var(--accent) / 0.3),
+      0 12px 32px -4px hsl(var(--accent) / 0.12),
+      0 4px 12px -2px hsl(var(--accent) / 0.08);
   }
 
+  /* Gold scroll progress bar */
   .scroll-progress {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, hsl(var(--accent)), hsl(216 90% 65%));
+    background: linear-gradient(90deg, hsl(var(--crimson)), hsl(var(--accent)), hsl(43 70% 75%));
     z-index: 9999;
     transform-origin: 0%;
   }
 
-  /* Gradient text utility */
+  /* Gold gradient text */
   .gradient-text {
-    background: linear-gradient(135deg, hsl(var(--accent)), hsl(216 90% 65%));
+    background: linear-gradient(135deg,
+      hsl(43 88% 70%),
+      hsl(38 80% 52%),
+      hsl(43 88% 68%)
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* Subtle dot grid background */
-  .dot-grid {
-    background-image: radial-gradient(
-      circle,
-      hsl(var(--foreground) / 0.1) 1px,
-      transparent 1px
-    );
-    background-size: 28px 28px;
+  /* Castle stone grid background */
+  .stone-grid {
+    background-image:
+      linear-gradient(hsl(var(--foreground) / 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--foreground) / 0.035) 1px, transparent 1px);
+    background-size: 72px 72px;
   }
 
-  /* Accent glow for buttons */
-  .glow-accent {
-    box-shadow: 0 0 24px hsl(var(--accent-glow) / 0.35),
-                0 4px 12px hsl(var(--accent-glow) / 0.2);
+  /* Radial glow for hero */
+  .hero-glow {
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 60%, hsl(var(--accent) / 0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 20% 30%, hsl(var(--crimson) / 0.06) 0%, transparent 60%);
   }
 
-  .glow-accent:hover {
-    box-shadow: 0 0 32px hsl(var(--accent-glow) / 0.5),
-                0 6px 16px hsl(var(--accent-glow) / 0.3);
+  /* Gold glow button */
+  .glow-gold {
+    box-shadow:
+      0 0 20px hsl(var(--accent) / 0.4),
+      0 4px 16px hsl(var(--accent) / 0.25);
   }
 
-  /* Gradient border card */
-  .gradient-border {
+  .glow-gold:hover {
+    box-shadow:
+      0 0 32px hsl(var(--accent) / 0.6),
+      0 6px 20px hsl(var(--accent) / 0.35);
+  }
+
+  /* Cinzel font utility */
+  .font-cinzel {
+    font-family: var(--font-cinzel), "Georgia", serif;
+  }
+
+  /* Ornamental section rule */
+  .ornament-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: hsl(var(--accent));
+  }
+
+  .ornament-rule::before,
+  .ornament-rule::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--accent) / 0.6), transparent);
+  }
+
+  /* Heraldic card border */
+  .heraldic-card {
     position: relative;
+    border: 1px solid hsl(var(--border));
+    background: hsl(var(--surface));
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all 250ms ease;
   }
 
-  .gradient-border::before {
+  .heraldic-card::before {
     content: '';
     position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(135deg, hsl(var(--accent) / 0.5), hsl(216 90% 65% / 0.3));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box,
-                  linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box,
-          linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, hsl(var(--accent) / 0.8), transparent);
+    opacity: 0;
+    transition: opacity 250ms ease;
+  }
+
+  .heraldic-card:hover::before {
+    opacity: 1;
+  }
+
+  .heraldic-card:hover {
+    transform: translateY(-4px);
+    border-color: hsl(var(--accent) / 0.3);
+    box-shadow:
+      0 0 0 1px hsl(var(--accent) / 0.15),
+      0 16px 40px -8px hsl(var(--accent) / 0.1);
   }
 }
