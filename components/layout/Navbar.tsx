@@ -17,36 +17,34 @@ export function Navbar() {
   }, []);
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "glass" : "bg-transparent"}`}>
-      <nav className="max-w-6xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? "glass" : "bg-transparent"
+      }`}
+    >
+      <nav className="max-w-7xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between gap-6">
 
-        {/* Logo */}
-        <a href="#" className="flex items-center gap-1.5 group">
-          <span
-            className="font-cinzel font-black text-base tracking-[4px] uppercase gradient-text"
-          >
-            DDM
-          </span>
+        {/* Logo — left */}
+        <a
+          href="#"
+          className="shrink-0 font-cinzel font-black text-sm tracking-[3px] uppercase gradient-text"
+        >
+          Dharane
         </a>
 
-        {/* Desktop nav — pill style like Polo */}
-        <div
-          className="hidden md:flex items-center gap-1 rounded-full px-2 py-1.5"
-          style={{ background: "hsl(var(--surface))", border: "1px solid hsl(var(--border))" }}
-        >
+        {/* Nav links — center, spread full width */}
+        <div className="hidden md:flex items-center gap-6 lg:gap-8 flex-1 justify-center">
           {siteConfig.nav.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="px-4 py-1.5 rounded-full text-xs font-medium uppercase tracking-widest transition-colors"
+              className="text-[11px] font-bold uppercase tracking-[2px] transition-colors duration-150 whitespace-nowrap"
               style={{ color: "hsl(var(--muted-foreground))" }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.color = "hsl(var(--foreground))";
-                (e.currentTarget as HTMLElement).style.background = "hsl(var(--muted))";
+                (e.currentTarget as HTMLElement).style.color = "hsl(var(--accent))";
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLElement).style.color = "hsl(var(--muted-foreground))";
-                (e.currentTarget as HTMLElement).style.background = "transparent";
               }}
             >
               {item.label}
@@ -54,47 +52,79 @@ export function Navbar() {
           ))}
         </div>
 
-        <div className="hidden md:flex items-center gap-3">
+        {/* Right actions */}
+        <div className="hidden md:flex items-center gap-3 shrink-0">
           <ThemeToggle />
           <a
             href="/resume.pdf"
             download
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest btn-gold"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-[11px] font-bold uppercase tracking-[2px] btn-gold"
           >
             Resume ↓
           </a>
         </div>
 
-        <button className="md:hidden p-2" onClick={() => setIsMobileOpen(!isMobileOpen)}>
+        {/* Mobile hamburger */}
+        <button
+          className="md:hidden p-2 rounded-lg transition-colors"
+          onClick={() => setIsMobileOpen(!isMobileOpen)}
+          style={{ color: "hsl(var(--foreground))" }}
+          aria-label="Toggle menu"
+        >
           {isMobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </nav>
 
+      {/* Mobile menu */}
       <AnimatePresence>
         {isMobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -8 }}
+            initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            className="md:hidden border-b px-6 py-4"
-            style={{ background: "hsl(var(--background) / 0.97)", borderColor: "hsl(var(--border))" }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden border-b"
+            style={{
+              background: "hsl(var(--background) / 0.98)",
+              borderColor: "hsl(var(--border))",
+              backdropFilter: "blur(12px)",
+            }}
           >
-            {siteConfig.nav.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={() => setIsMobileOpen(false)}
-                className="block py-3 text-sm font-medium uppercase tracking-widest border-b transition-colors"
-                style={{ borderColor: "hsl(var(--border) / 0.5)", color: "hsl(var(--muted-foreground))" }}
-              >
-                {item.label}
-              </a>
-            ))}
-            <div className="flex items-center gap-3 pt-4">
-              <ThemeToggle />
-              <a href="/resume.pdf" download className="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest btn-gold">
-                Resume ↓
-              </a>
+            <div className="max-w-7xl mx-auto px-6 py-2 pb-5">
+              {siteConfig.nav.map((item, i) => (
+                <motion.a
+                  key={item.href}
+                  href={item.href}
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.04 }}
+                  onClick={() => setIsMobileOpen(false)}
+                  className="flex items-center justify-between py-3.5 text-sm font-bold uppercase tracking-[2px] border-b"
+                  style={{
+                    borderColor: "hsl(var(--border) / 0.4)",
+                    color: "hsl(var(--muted-foreground))",
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.color = "hsl(var(--accent))";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.color = "hsl(var(--muted-foreground))";
+                  }}
+                >
+                  {item.label}
+                  <span style={{ color: "hsl(var(--accent))" }}>→</span>
+                </motion.a>
+              ))}
+              <div className="flex items-center gap-3 pt-4">
+                <ThemeToggle />
+                <a
+                  href="/resume.pdf"
+                  download
+                  className="flex-1 text-center py-2.5 rounded-full text-xs font-bold uppercase tracking-[2px] btn-gold"
+                >
+                  Resume ↓
+                </a>
+              </div>
             </div>
           </motion.div>
         )}
