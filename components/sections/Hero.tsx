@@ -1,221 +1,214 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { Download, ChevronDown } from "lucide-react";
-import { siteConfig } from "../../config/site";
+import { ArrowUpRight, Download, ChevronDown } from "lucide-react";
 
-const containerVariants: Variants = {
+const container: Variants = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.3 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
+};
+
+const item: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: "easeOut" } },
+};
+
+const floatingCards = [
+  {
+    id: 0,
+    value: "99%+",
+    label: "Data Accuracy",
+    sub: "Millions of records validated",
+    rotate: -5,
+    x: "62%",
+    y: "18%",
+    duration: 5,
+    delay: 0,
+    gold: true,
   },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
-};
-
-// Fixed particles — no randomness to avoid hydration mismatch
-const EMBERS = [
-  { id: 0,  left: "8%",  size: 2,   dur: 6,   delay: 0,   drift: 20  },
-  { id: 1,  left: "15%", size: 1.5, dur: 8,   delay: 1.2, drift: -15 },
-  { id: 2,  left: "23%", size: 3,   dur: 5.5, delay: 0.4, drift: 25  },
-  { id: 3,  left: "31%", size: 1,   dur: 7,   delay: 2.1, drift: -10 },
-  { id: 4,  left: "40%", size: 2.5, dur: 6.5, delay: 0.8, drift: 18  },
-  { id: 5,  left: "48%", size: 1.5, dur: 9,   delay: 3,   drift: -22 },
-  { id: 6,  left: "55%", size: 2,   dur: 5,   delay: 1.5, drift: 12  },
-  { id: 7,  left: "63%", size: 3,   dur: 7.5, delay: 0.2, drift: -18 },
-  { id: 8,  left: "71%", size: 1,   dur: 6,   delay: 2.5, drift: 20  },
-  { id: 9,  left: "78%", size: 2,   dur: 8,   delay: 0.6, drift: -12 },
-  { id: 10, left: "85%", size: 1.5, dur: 5.5, delay: 1.8, drift: 16  },
-  { id: 11, left: "92%", size: 2.5, dur: 7,   delay: 3.2, drift: -20 },
-  { id: 12, left: "5%",  size: 1,   dur: 6.5, delay: 4,   drift: 10  },
-  { id: 13, left: "35%", size: 2,   dur: 8.5, delay: 2.8, drift: -25 },
-  { id: 14, left: "67%", size: 1.5, dur: 5,   delay: 1,   drift: 22  },
+  {
+    id: 1,
+    value: "EU-wide",
+    label: "Network Scope",
+    sub: "First · Middle · Last Mile",
+    rotate: 4,
+    x: "68%",
+    y: "48%",
+    duration: 6.5,
+    delay: 0.8,
+    gold: false,
+  },
+  {
+    id: 2,
+    value: "🏆",
+    label: "Peak Week RNR",
+    sub: "Amazon Recognition Award",
+    rotate: -3,
+    x: "55%",
+    y: "70%",
+    duration: 5.5,
+    delay: 1.6,
+    gold: false,
+  },
 ];
-
-const metrics = [
-  { value: "99%+", label: "Data Accuracy" },
-  { value: "EU-wide", label: "Network Scope" },
-  { value: "Peak RNR", label: "Recognition" },
-];
-
-function SwordIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5" />
-      <line x1="13" y1="19" x2="19" y2="13" />
-      <line x1="16" y1="16" x2="20" y2="20" />
-      <line x1="19" y1="21" x2="21" y2="19" />
-    </svg>
-  );
-}
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
-      {/* Castle stone grid */}
-      <div className="absolute inset-0 stone-grid opacity-100" />
-
-      {/* Radial hero glow */}
-      <div className="absolute inset-0 hero-glow" />
-
-      {/* Vignette */}
+    <section className="relative min-h-screen flex items-center overflow-hidden px-6 md:px-12 lg:px-20">
+      {/* Radial glow behind name */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse 100% 80% at 50% 50%, transparent 40%, hsl(var(--background)) 100%)",
+          background:
+            "radial-gradient(ellipse 60% 50% at 30% 50%, hsl(43 88% 55% / 0.07) 0%, transparent 65%)",
         }}
       />
 
-      {/* Ember particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {EMBERS.map((e) => (
-          <motion.div
-            key={e.id}
-            className="absolute rounded-full"
-            style={{
-              left: e.left,
-              bottom: "-8px",
-              width: e.size,
-              height: e.size,
-              background: `hsl(43 90% 65%)`,
-              boxShadow: `0 0 ${e.size * 4}px 1px hsl(43 90% 60%)`,
-            }}
-            animate={{
-              y: [-0, -700],
-              x: [0, e.drift],
-              opacity: [0, 0.9, 0.7, 0.4, 0],
-              scale: [1, 0.8, 0.5],
-            }}
-            transition={{
-              duration: e.dur,
-              delay: e.delay,
-              repeat: Infinity,
-              ease: "easeOut",
-            }}
-          />
-        ))}
-      </div>
+      {/* Subtle grid */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.035]"
+        style={{
+          backgroundImage:
+            "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
+          backgroundSize: "80px 80px",
+        }}
+      />
 
-      {/* Content */}
+      {/* Left: main content */}
       <motion.div
-        variants={containerVariants}
+        variants={container}
         initial="hidden"
         animate="visible"
-        className="relative z-10 max-w-4xl w-full text-center"
+        className="relative z-10 w-full max-w-[55%] md:max-w-[52%] pt-24 pb-16"
       >
-        {/* Crown / sigil line */}
-        <motion.div variants={itemVariants} className="flex items-center justify-center gap-3 mb-6">
-          <div className="h-px w-16" style={{ background: "linear-gradient(to right, transparent, hsl(var(--accent) / 0.7))" }} />
-          <span className="font-cinzel text-xs tracking-[5px] uppercase" style={{ color: "hsl(var(--accent))" }}>
-            The Portfolio of
+        {/* Role pill */}
+        <motion.div variants={item} className="mb-8">
+          <span className="pill">
+            <span
+              className="w-1.5 h-1.5 rounded-full"
+              style={{ background: "hsl(var(--success))", boxShadow: "0 0 6px hsl(var(--success))" }}
+            />
+            Supply Chain Analyst
           </span>
-          <div className="h-px w-16" style={{ background: "linear-gradient(to left, transparent, hsl(var(--accent) / 0.7))" }} />
         </motion.div>
 
-        {/* Main name — massive Cinzel */}
-        <motion.h1
-          variants={itemVariants}
-          className="font-cinzel font-black gradient-text uppercase tracking-widest leading-none mb-2"
-          style={{ fontSize: "clamp(2.8rem, 9vw, 6.5rem)" }}
-        >
-          Dharane
-        </motion.h1>
-        <motion.h1
-          variants={itemVariants}
-          className="font-cinzel font-black gradient-text uppercase tracking-widest leading-none mb-8"
-          style={{ fontSize: "clamp(2.8rem, 9vw, 6.5rem)" }}
-        >
-          Dharan M
-        </motion.h1>
+        {/* Name */}
+        <motion.div variants={item}>
+          <h1
+            className="font-black leading-none tracking-tighter"
+            style={{ fontSize: "clamp(3.5rem, 10vw, 8rem)", color: "hsl(var(--foreground))" }}
+          >
+            Dharane
+          </h1>
+          <h1
+            className="font-black leading-none tracking-tighter gradient-text"
+            style={{ fontSize: "clamp(3.5rem, 10vw, 8rem)" }}
+          >
+            Dharan M
+          </h1>
+        </motion.div>
 
-        {/* Titles */}
-        <motion.p variants={itemVariants} className="font-cinzel text-sm md:text-base tracking-[3px] uppercase mb-3" style={{ color: "hsl(var(--muted-foreground))" }}>
-          Supply Chain Analyst · Operations Engineer · Data Strategist
+        {/* Bio */}
+        <motion.p
+          variants={item}
+          className="mt-8 text-base md:text-lg leading-relaxed max-w-md"
+          style={{ color: "hsl(var(--muted-foreground))" }}
+        >
+          I validate millions of data points, diagnose speed degradation across EU transportation networks,
+          and build systems that keep operations reliable at scale.
         </motion.p>
 
-        {/* House words */}
-        <motion.div variants={itemVariants} className="flex items-center justify-center gap-3 mb-10">
-          <div className="h-px w-12" style={{ background: "hsl(var(--accent) / 0.5)" }} />
-          <span className="font-cinzel text-xs italic" style={{ color: "hsl(var(--accent))" }}>
-            &quot;Data Validates. Systems Prevail.&quot;
-          </span>
-          <div className="h-px w-12" style={{ background: "hsl(var(--accent) / 0.5)" }} />
-        </motion.div>
-
-        {/* Impact metrics — heraldic badges */}
-        <motion.div variants={itemVariants} className="flex flex-wrap items-center justify-center gap-3 mb-10">
-          {metrics.map((m) => (
-            <div
-              key={m.label}
-              className="px-5 py-2.5 rounded-sm border flex items-center gap-2"
-              style={{
-                background: "hsl(var(--surface) / 0.9)",
-                borderColor: "hsl(var(--accent) / 0.35)",
-                backdropFilter: "blur(8px)",
-              }}
-            >
-              <span className="font-cinzel font-bold text-sm" style={{ color: "hsl(var(--accent))" }}>{m.value}</span>
-              <span className="text-xs" style={{ color: "hsl(var(--muted-foreground))" }}>{m.label}</span>
-            </div>
-          ))}
-        </motion.div>
-
         {/* CTAs */}
-        <motion.div variants={itemVariants} className="flex flex-wrap items-center justify-center gap-4">
-          <a
-            href="#projects"
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-sm font-cinzel font-bold text-sm uppercase tracking-widest glow-gold transition-all"
-            style={{
-              background: "hsl(var(--accent))",
-              color: "hsl(var(--accent-foreground))",
-            }}
-          >
-            <SwordIcon />
-            Enter the Realm
+        <motion.div variants={item} className="flex flex-wrap gap-3 mt-10">
+          <a href="#projects" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full font-semibold text-sm btn-gold">
+            See All Projects <ArrowUpRight className="w-4 h-4" />
+          </a>
+          <a href="#contact" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full font-semibold text-sm btn-ghost">
+            Contact Now
           </a>
           <a
             href="/resume.pdf"
             download
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-sm font-cinzel font-bold text-sm uppercase tracking-widest border transition-all hover:bg-accent/10"
-            style={{
-              borderColor: "hsl(var(--accent) / 0.6)",
-              color: "hsl(var(--accent))",
-            }}
+            className="inline-flex items-center gap-2 px-5 py-3.5 text-sm font-medium transition-colors"
+            style={{ color: "hsl(var(--muted-foreground))" }}
           >
-            <Download style={{ width: 14, height: 14 }} />
-            Scroll of Deeds
-          </a>
-          <a
-            href={siteConfig.links.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-3.5 rounded-sm font-cinzel text-sm uppercase tracking-wider border transition-colors"
-            style={{
-              borderColor: "hsl(var(--border))",
-              color: "hsl(var(--muted-foreground))",
-            }}
-          >
-            LinkedIn
+            <Download className="w-4 h-4" />
+            Resume
           </a>
         </motion.div>
       </motion.div>
 
-      {/* Scroll indicator */}
+      {/* Right: floating achievement cards (desktop only) */}
+      <div className="absolute right-0 top-0 bottom-0 w-[45%] hidden md:block pointer-events-none">
+        {floatingCards.map((card) => (
+          <motion.div
+            key={card.id}
+            className="absolute"
+            style={{ left: "20%", top: card.y }}
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.6 + card.id * 0.2 }}
+          >
+            <motion.div
+              animate={{ y: [-6, 6, -6] }}
+              transition={{ duration: card.duration, repeat: Infinity, ease: "easeInOut", delay: card.delay }}
+              style={{ rotate: card.rotate }}
+            >
+              <div
+                className="rounded-2xl p-4 w-52 pointer-events-auto"
+                style={{
+                  background: card.gold ? "hsl(43 88% 55%)" : "hsl(var(--surface))",
+                  border: `1px solid ${card.gold ? "transparent" : "hsl(var(--border))"}`,
+                  boxShadow: card.gold
+                    ? "0 8px 32px hsl(43 88% 55% / 0.35)"
+                    : "0 8px 32px hsl(0 0% 0% / 0.4)",
+                }}
+              >
+                <p
+                  className="text-2xl font-black leading-none"
+                  style={{ color: card.gold ? "hsl(var(--accent-foreground))" : "hsl(var(--foreground))" }}
+                >
+                  {card.value}
+                </p>
+                <p
+                  className="font-bold text-sm mt-1"
+                  style={{ color: card.gold ? "hsl(0 0% 5% / 0.8)" : "hsl(var(--foreground))" }}
+                >
+                  {card.label}
+                </p>
+                <p
+                  className="text-xs mt-0.5"
+                  style={{ color: card.gold ? "hsl(0 0% 5% / 0.6)" : "hsl(var(--muted-foreground))" }}
+                >
+                  {card.sub}
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Bottom: currently at */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1"
+        transition={{ delay: 1.4 }}
+        className="absolute bottom-10 left-6 md:left-12 lg:left-20 flex items-center gap-6"
       >
-        <span className="font-cinzel text-[10px] tracking-[4px] uppercase" style={{ color: "hsl(var(--accent) / 0.5)" }}>
-          Scroll
+        <span className="text-xs uppercase tracking-[3px] font-medium" style={{ color: "hsl(var(--muted-foreground))" }}>
+          Currently @ Amazon ROC · PSG Tech &apos;24
         </span>
-        <motion.div animate={{ y: [0, 7, 0] }} transition={{ repeat: Infinity, duration: 2.2 }}>
-          <ChevronDown style={{ width: 18, height: 18 }} className="text-muted-foreground/40" />
+      </motion.div>
+
+      {/* Scroll cue */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.6 }}
+        className="absolute bottom-10 right-6 md:right-12 lg:right-20"
+      >
+        <motion.div animate={{ y: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 2 }}>
+          <ChevronDown className="w-5 h-5" style={{ color: "hsl(var(--muted-foreground))" }} />
         </motion.div>
       </motion.div>
     </section>

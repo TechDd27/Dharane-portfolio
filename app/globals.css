@@ -4,46 +4,39 @@
 
 @layer base {
   :root {
-    /* Light: Aged Parchment */
-    --background: 40 35% 95%;
-    --foreground: 25 40% 10%;
-    --surface: 40 28% 99%;
-    --border: 38 25% 78%;
-    --muted: 40 20% 91%;
-    --muted-foreground: 30 22% 42%;
-    --accent: 43 88% 44%;
-    --accent-hover: 43 88% 36%;
-    --accent-foreground: 40 35% 95%;
+    --background: 0 0% 98%;
+    --foreground: 0 0% 5%;
+    --surface: 0 0% 100%;
+    --border: 0 0% 88%;
+    --muted: 0 0% 94%;
+    --muted-foreground: 0 0% 42%;
+    --accent: 43 88% 46%;
+    --accent-hover: 43 88% 38%;
+    --accent-foreground: 0 0% 98%;
     --success: 142 55% 40%;
-    --gold: 43 88% 44%;
-    --crimson: 0 65% 38%;
+    --gold: 43 88% 46%;
   }
 
   .dark {
-    /* Dark: Castle Walls */
-    --background: 222 22% 4%;
-    --foreground: 38 28% 82%;
-    --surface: 222 18% 7%;
-    --border: 35 16% 14%;
-    --muted: 222 16% 8%;
-    --muted-foreground: 38 14% 50%;
-    --accent: 43 88% 54%;
-    --accent-hover: 43 88% 64%;
-    --accent-foreground: 222 22% 4%;
+    --background: 0 0% 3%;
+    --foreground: 0 0% 95%;
+    --surface: 0 0% 7%;
+    --border: 0 0% 12%;
+    --muted: 0 0% 8%;
+    --muted-foreground: 0 0% 48%;
+    --accent: 43 88% 55%;
+    --accent-hover: 43 88% 65%;
+    --accent-foreground: 0 0% 3%;
     --success: 142 55% 52%;
-    --gold: 43 88% 54%;
-    --crimson: 0 65% 48%;
+    --gold: 43 88% 55%;
   }
 
-  * {
-    border-color: hsl(var(--border));
-  }
+  * { border-color: hsl(var(--border)); }
 
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 
   html {
@@ -58,138 +51,102 @@
 }
 
 @layer components {
-  /* Glassmorphism navbar */
   .glass {
-    background-color: hsl(var(--background) / 0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background-color: hsl(var(--background) / 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid hsl(var(--border));
   }
 
   .section {
-    max-width: 64rem;
+    max-width: 72rem;
     margin-left: auto;
     margin-right: auto;
-    padding: 5rem 1.5rem;
+    padding: 6rem 1.5rem;
   }
 
-  /* Card with GoT hover: gold glow */
-  .card-hover {
-    transition: all 250ms ease;
-  }
-
-  .card-hover:hover {
-    transform: translateY(-4px);
-    box-shadow:
-      0 0 0 1px hsl(var(--accent) / 0.3),
-      0 12px 32px -4px hsl(var(--accent) / 0.12),
-      0 4px 12px -2px hsl(var(--accent) / 0.08);
-  }
-
-  /* Gold scroll progress bar */
-  .scroll-progress {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, hsl(var(--crimson)), hsl(var(--accent)), hsl(43 70% 75%));
-    z-index: 9999;
-    transform-origin: 0%;
+  .section-full {
+    padding: 6rem 1.5rem;
   }
 
   /* Gold gradient text */
   .gradient-text {
-    background: linear-gradient(135deg,
-      hsl(43 88% 70%),
-      hsl(38 80% 52%),
-      hsl(43 88% 68%)
-    );
+    background: linear-gradient(135deg, hsl(43 88% 70%), hsl(38 80% 50%), hsl(43 88% 65%));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* Castle stone grid background */
-  .stone-grid {
-    background-image:
-      linear-gradient(hsl(var(--foreground) / 0.035) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(var(--foreground) / 0.035) 1px, transparent 1px);
-    background-size: 72px 72px;
-  }
-
-  /* Radial glow for hero */
-  .hero-glow {
-    background:
-      radial-gradient(ellipse 70% 50% at 50% 60%, hsl(var(--accent) / 0.08) 0%, transparent 70%),
-      radial-gradient(ellipse 50% 40% at 20% 30%, hsl(var(--crimson) / 0.06) 0%, transparent 60%);
-  }
-
-  /* Gold glow button */
-  .glow-gold {
-    box-shadow:
-      0 0 20px hsl(var(--accent) / 0.4),
-      0 4px 16px hsl(var(--accent) / 0.25);
-  }
-
-  .glow-gold:hover {
-    box-shadow:
-      0 0 32px hsl(var(--accent) / 0.6),
-      0 6px 20px hsl(var(--accent) / 0.35);
-  }
-
-  /* Cinzel font utility */
+  /* Cinzel font */
   .font-cinzel {
     font-family: var(--font-cinzel), "Georgia", serif;
   }
 
-  /* Ornamental section rule */
-  .ornament-rule {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    color: hsl(var(--accent));
+  /* Scroll progress */
+  .scroll-progress {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, hsl(var(--accent)), hsl(43 70% 75%));
+    z-index: 9999;
+    transform-origin: 0%;
   }
 
-  .ornament-rule::before,
-  .ornament-rule::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, hsl(var(--accent) / 0.6), transparent);
-  }
-
-  /* Heraldic card border */
-  .heraldic-card {
-    position: relative;
+  /* Editorial card */
+  .editorial-card {
     border: 1px solid hsl(var(--border));
     background: hsl(var(--surface));
-    border-radius: 1rem;
-    overflow: hidden;
-    transition: all 250ms ease;
+    transition: border-color 220ms ease, transform 220ms ease;
   }
 
-  .heraldic-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, hsl(var(--accent) / 0.8), transparent);
-    opacity: 0;
-    transition: opacity 250ms ease;
+  .editorial-card:hover {
+    border-color: hsl(var(--accent) / 0.5);
+    transform: translateY(-3px);
   }
 
-  .heraldic-card:hover::before {
-    opacity: 1;
+  /* Gold glow button */
+  .btn-gold {
+    background: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+    transition: all 200ms ease;
+    box-shadow: 0 0 20px hsl(var(--accent) / 0.3);
   }
 
-  .heraldic-card:hover {
-    transform: translateY(-4px);
-    border-color: hsl(var(--accent) / 0.3);
-    box-shadow:
-      0 0 0 1px hsl(var(--accent) / 0.15),
-      0 16px 40px -8px hsl(var(--accent) / 0.1);
+  .btn-gold:hover {
+    background: hsl(var(--accent-hover));
+    box-shadow: 0 0 32px hsl(var(--accent) / 0.5);
+    transform: translateY(-2px);
+  }
+
+  /* Ghost button */
+  .btn-ghost {
+    border: 1px solid hsl(var(--foreground) / 0.25);
+    color: hsl(var(--foreground));
+    transition: all 200ms ease;
+  }
+
+  .btn-ghost:hover {
+    border-color: hsl(var(--accent) / 0.6);
+    color: hsl(var(--accent));
+    transform: translateY(-2px);
+  }
+
+  /* Pill tag */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.875rem;
+    border-radius: 9999px;
+    border: 1px solid hsl(var(--border));
+    background: hsl(var(--surface));
+    font-size: 0.75rem;
+    color: hsl(var(--muted-foreground));
+  }
+
+  /* Subtle rule */
+  .gold-rule {
+    height: 1px;
+    background: linear-gradient(90deg, hsl(var(--accent) / 0.6), transparent);
   }
 }
