@@ -2,9 +2,11 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { Database, Globe, Award, BarChart3 } from "lucide-react";
 import { siteConfig } from "../../config/site";
 import { SectionHeading } from "../ui/SectionHeading";
-import { AnimatedCounter } from "../ui/AnimatedCounter";
+
+const statIcons = [BarChart3, Database, Globe, Award];
 
 export function About() {
   const ref = useRef(null);
@@ -19,33 +21,56 @@ export function About() {
         initial={{ opacity: 0, y: 30 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
-        className="grid md:grid-cols-[200px_1fr] gap-10 items-start mt-12"
+        className="mt-12 space-y-10"
       >
-        <div className="mx-auto md:mx-0">
-          <div className="w-40 h-40 rounded-xl bg-muted border border-border flex items-center justify-center overflow-hidden">
-            <span className="text-4xl">👤</span>
+        {/* Bio */}
+        <div className="relative p-6 rounded-2xl border border-border bg-surface overflow-hidden">
+          {/* Subtle corner accent */}
+          <div
+            className="absolute top-0 right-0 w-32 h-32 rounded-bl-full opacity-30 pointer-events-none"
+            style={{ background: "radial-gradient(circle at top right, hsl(var(--accent) / 0.3), transparent 70%)" }}
+          />
+          <div className="flex gap-5 items-start">
+            <div
+              className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl shrink-0"
+              style={{ background: "hsl(var(--accent) / 0.1)", border: "1px solid hsl(var(--accent) / 0.2)" }}
+            >
+              👤
+            </div>
+            <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
+              {about.bio}
+            </p>
           </div>
         </div>
 
-        <div>
-          <p className="text-lg leading-relaxed text-muted-foreground">{about.bio}</p>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
-            {about.stats.map((stat, i) => (
+        {/* Stats grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {about.stats.map((stat, i) => {
+            const Icon = statIcons[i % statIcons.length];
+            return (
               <motion.div
                 key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
-                className="p-4 rounded-lg bg-surface border border-border text-center"
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+                transition={{ duration: 0.5, delay: 0.15 + i * 0.1 }}
+                className="relative p-5 rounded-2xl border border-border bg-surface overflow-hidden group card-hover text-center"
               >
-                <div className="text-2xl font-bold text-accent">
-                  <AnimatedCounter value={stat.value} />
+                {/* Glow on hover */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl"
+                  style={{ background: "radial-gradient(circle at 50% 0%, hsl(var(--accent) / 0.08), transparent 70%)" }}
+                />
+                <div
+                  className="w-9 h-9 rounded-lg mx-auto mb-3 flex items-center justify-center"
+                  style={{ background: "hsl(var(--accent) / 0.12)" }}
+                >
+                  <Icon className="w-4 h-4" style={{ color: "hsl(var(--accent))" }} />
                 </div>
-                <div className="text-xs text-muted-foreground mt-1">{stat.label}</div>
+                <div className="text-2xl font-extrabold gradient-text">{stat.value}</div>
+                <div className="text-xs text-muted-foreground mt-1 font-medium">{stat.label}</div>
               </motion.div>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </motion.div>
     </section>

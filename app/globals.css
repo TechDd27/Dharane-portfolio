@@ -4,29 +4,33 @@
 
 @layer base {
   :root {
-    --background: 0 0% 98%;
-    --foreground: 0 0% 9%;
+    --background: 240 20% 99%;
+    --foreground: 240 15% 8%;
     --surface: 0 0% 100%;
-    --border: 0 0% 90%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 32%;
-    --accent: 217 91% 60%;
-    --accent-hover: 217 91% 50%;
+    --border: 240 8% 88%;
+    --muted: 240 10% 95%;
+    --muted-foreground: 240 6% 42%;
+    --accent: 258 85% 65%;
+    --accent-hover: 258 85% 55%;
     --accent-foreground: 0 0% 100%;
+    --accent-glow: 258 85% 65%;
     --success: 142 71% 45%;
+    --gold: 38 90% 58%;
   }
 
   .dark {
-    --background: 0 0% 4%;
-    --foreground: 0 0% 93%;
-    --surface: 0 0% 8%;
-    --border: 0 0% 15%;
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 64%;
-    --accent: 217 91% 65%;
-    --accent-hover: 217 91% 75%;
+    --background: 240 12% 5%;
+    --foreground: 240 8% 92%;
+    --surface: 240 10% 8%;
+    --border: 240 8% 14%;
+    --muted: 240 10% 9%;
+    --muted-foreground: 240 5% 62%;
+    --accent: 258 80% 68%;
+    --accent-hover: 258 80% 78%;
     --accent-foreground: 0 0% 100%;
+    --accent-glow: 258 80% 68%;
     --success: 142 71% 55%;
+    --gold: 38 90% 62%;
   }
 
   * {
@@ -67,12 +71,14 @@
   }
 
   .card-hover {
-    transition: all 200ms ease;
+    transition: all 220ms ease;
   }
 
   .card-hover:hover {
     transform: translateY(-4px);
-    box-shadow: 0 10px 25px -5px hsl(var(--accent) / 0.05);
+    box-shadow: 0 12px 30px -5px hsl(var(--accent-glow) / 0.15),
+                0 4px 12px -2px hsl(var(--accent-glow) / 0.08);
+    border-color: hsl(var(--accent) / 0.35);
   }
 
   .scroll-progress {
@@ -81,8 +87,57 @@
     left: 0;
     right: 0;
     height: 2px;
-    background-color: hsl(var(--accent));
+    background: linear-gradient(90deg, hsl(var(--accent)), hsl(216 90% 65%));
     z-index: 9999;
     transform-origin: 0%;
+  }
+
+  /* Gradient text utility */
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(var(--accent)), hsl(216 90% 65%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Subtle dot grid background */
+  .dot-grid {
+    background-image: radial-gradient(
+      circle,
+      hsl(var(--foreground) / 0.1) 1px,
+      transparent 1px
+    );
+    background-size: 28px 28px;
+  }
+
+  /* Accent glow for buttons */
+  .glow-accent {
+    box-shadow: 0 0 24px hsl(var(--accent-glow) / 0.35),
+                0 4px 12px hsl(var(--accent-glow) / 0.2);
+  }
+
+  .glow-accent:hover {
+    box-shadow: 0 0 32px hsl(var(--accent-glow) / 0.5),
+                0 6px 16px hsl(var(--accent-glow) / 0.3);
+  }
+
+  /* Gradient border card */
+  .gradient-border {
+    position: relative;
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, hsl(var(--accent) / 0.5), hsl(216 90% 65% / 0.3));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+                  linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
   }
 }
