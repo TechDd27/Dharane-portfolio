@@ -4,6 +4,7 @@ import { ThemeProvider } from "../components/providers/ThemeProvider";
 import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
 import { ScrollProgress } from "../components/layout/ScrollProgress";
+import { RightNav } from "../components/layout/RightNav";
 import "./globals.css";
 
 const inter = Inter({
@@ -35,6 +36,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <ScrollProgress />
           <Navbar />
+          <RightNav />
           <main className="min-h-screen">{children}</main>
           <Footer />
         </ThemeProvider>
