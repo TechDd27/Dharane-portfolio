@@ -60,4 +60,33 @@ export const projects: Project[] = [
       "Data pipeline design with Pandas for Q&A knowledge base",
     ],
   },
+  {
+    id: "hotel-booking-analysis",
+    slug: "hotel-booking-analysis",
+    title: "Hotel Booking Demand Analysis",
+    subtitle: "Self-Directed Project — Excel · Python · Statistical Analysis",
+    description:
+      "Analyzed 119,000+ hotel booking records to identify cancellation drivers and seasonal demand patterns. Built trend visualizations and customer segmentation models by booking lead time — applying the same demand-pattern detection used in supply chain forecasting.",
+    status: "completed",
+    featured: true,
+    problem:
+      "High cancellation rates and uneven seasonal demand make revenue planning and capacity allocation difficult for hotel operations teams.",
+    solution:
+      "Processed 119K+ booking records using Python (Pandas) and Excel to surface cancellation drivers, model seasonal spikes, and segment customers by booking lead time to simulate marketing and capacity insights.",
+    impact: [
+      "Identified key cancellation drivers across booking channels and lead times",
+      "Modeled seasonal demand spikes (July–Aug) for capacity planning signals",
+      "Segmented customers by lead time to simulate targeted marketing strategies",
+      "Demonstrated demand-pattern detection transferable to supply chain forecasting",
+    ],
+    techStack: ["Excel", "Python", "Statistical Analysis", "Data Visualization", "Trend Analysis"],
+    image: "",
+    github: "",
+    liveUrl: "",
+    learnings: [
+      "Demand-pattern detection at scale using Python and statistical methods",
+      "Customer segmentation by behavioral signals (booking lead time)",
+      "Translating hospitality data patterns into supply chain forecasting analogies",
+    ],
+  },
 ];

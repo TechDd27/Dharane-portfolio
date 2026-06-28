@@ -31,24 +31,29 @@ export function About() {
               className="text-xl md:text-2xl leading-relaxed font-medium"
               style={{ color: "hsl(var(--foreground))" }}
             >
-              I graduated with a degree in{" "}
-              <span className="gradient-text font-bold">Robotics & Automation</span>{" "}
-              — where I learned to think in systems.
+              Most people see a delayed shipment. I see a chain of small failures
+              that compounded — a missed validation, an unflagged anomaly, a gap
+              between what the data said and what was{" "}
+              <span className="gradient-text font-bold">actually happening on the ground.</span>
             </p>
             <p
               className="text-base md:text-lg leading-relaxed mt-6"
               style={{ color: "hsl(var(--muted-foreground))" }}
             >
-              At Amazon, I applied that same systems thinking to supply chains spanning
-              the EU and India. I validate millions of data points, diagnose speed
-              degradation across transportation networks, and coordinate cross-functional
-              teams to keep operations reliable at scale.
+              I studied{" "}
+              <span style={{ color: "hsl(var(--foreground))", fontWeight: 600 }}>Robotics & Automation</span>{" "}
+              because I wanted to understand how complex systems break — not just in
+              theory, but down to the sensor, the signal, the feedback loop. At Amazon,
+              I apply that same instinct to supply chains: validating millions of records,
+              hunting root causes of speed degradation across First/Middle/Last Mile,
+              and closing the gap between what the dashboard shows and what&apos;s
+              actually true.
             </p>
             <p
-              className="text-base md:text-lg leading-relaxed mt-4 font-semibold"
+              className="text-base md:text-lg leading-relaxed mt-6 font-semibold"
               style={{ color: "hsl(var(--foreground))" }}
             >
-              I don't just analyze — I engineer solutions.
+              I don&apos;t wait for someone to tell me what broke. I go find it first.
             </p>
           </motion.div>
 

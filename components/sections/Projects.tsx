@@ -20,6 +20,12 @@ const projectMeta = [
     accentColor: "hsl(172 60% 48%)",
     bg: "hsl(172 60% 48% / 0.05)",
   },
+  {
+    id: "hotel-booking-analysis",
+    emoji: "📈",
+    accentColor: "hsl(258 70% 65%)",
+    bg: "hsl(258 70% 65% / 0.06)",
+  },
 ];
 
 export function Projects() {
@@ -126,7 +132,7 @@ export function Projects() {
                         ))}
                       </div>
 
-                      {project.caseStudy ? (
+                      {project.caseStudy && (
                         <a
                           href={project.caseStudy}
                           target="_blank"
@@ -137,13 +143,6 @@ export function Projects() {
                         >
                           View Case Study <ArrowUpRight className="w-3.5 h-3.5" />
                         </a>
-                      ) : (
-                        <span
-                          className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest opacity-30"
-                          style={{ color: meta.accentColor }}
-                        >
-                          Case Study Coming Soon
-                        </span>
                       )}
                     </div>
                   </div>
@@ -152,28 +151,6 @@ export function Projects() {
             );
           })}
 
-          {/* Coming soon teaser */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="rounded-2xl border-2 border-dashed p-10 flex items-center justify-center text-center"
-            style={{ borderColor: "hsl(var(--accent) / 0.2)" }}
-          >
-            <div>
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
-                className="text-3xl mb-4 inline-block"
-                style={{ color: "hsl(var(--accent) / 0.4)" }}
-              >
-                ✦
-              </motion.div>
-              <p className="font-cinzel font-bold uppercase tracking-widest text-sm" style={{ color: "hsl(var(--muted-foreground))" }}>
-                Next Quest Loading
-              </p>
-            </div>
-          </motion.div>
         </div>
       </div>
     </section>

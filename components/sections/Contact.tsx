@@ -51,15 +51,15 @@ export function Contact() {
               className="text-2xl md:text-4xl font-black leading-tight"
               style={{ color: "hsl(var(--foreground))" }}
             >
-              Open to{" "}
+              Currently interviewing for{" "}
               <span className="gradient-text">Supply Chain</span>,{" "}
               <span className="gradient-text">Operations</span>, and{" "}
               <span className="gradient-text">Data Analyst</span>{" "}
-              opportunities.
+              roles.
             </p>
             <p className="mt-6 text-base leading-relaxed max-w-lg" style={{ color: "hsl(var(--muted-foreground))" }}>
-              I respond to every message. Whether it&apos;s a role, a project,
-              or just a conversation about supply chains — reach out.
+              If you&apos;re hiring — or just want to talk shop about supply chains
+              — I&apos;d love 15 minutes.
             </p>
 
             {/* Email button */}
