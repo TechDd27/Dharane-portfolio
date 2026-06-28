@@ -40,6 +40,26 @@ export function Hero() {
           animate="visible"
           className="relative z-10 flex flex-col justify-center px-8 md:px-16 lg:px-20 py-16 w-full md:w-[48%] shrink-0"
         >
+          {/* Mobile avatar — shown only on small screens */}
+          <motion.div
+            variants={item}
+            className="md:hidden mb-8 flex justify-center"
+          >
+            <div
+              className="w-32 h-32 rounded-full overflow-hidden"
+              style={{ border: "3px solid hsl(var(--accent))" }}
+            >
+              <Image
+                src="/images/headshot.jpg"
+                alt="Dharane Dharan M"
+                width={128}
+                height={128}
+                className="object-cover object-top w-full h-full"
+                priority
+              />
+            </div>
+          </motion.div>
+
           {/* Name */}
           <motion.h1
             variants={item}
