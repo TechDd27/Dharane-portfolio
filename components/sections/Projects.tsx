@@ -9,7 +9,7 @@ import { Badge } from "../ui/Badge";
 
 const projectMeta = [
   {
-    id: "roc-metrics-dashboard",
+    id: "supply-chain-dashboard",
     emoji: "📊",
     accentColor: "hsl(43 88% 55%)",
     bg: "hsl(43 88% 55% / 0.06)",
@@ -126,12 +126,25 @@ export function Projects() {
                         ))}
                       </div>
 
-                      <div
-                        className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest transition-opacity hover:opacity-70"
-                        style={{ color: meta.accentColor }}
-                      >
-                        View Case Study <ArrowUpRight className="w-3.5 h-3.5" />
-                      </div>
+                      {project.caseStudy ? (
+                        <a
+                          href={project.caseStudy}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest transition-opacity hover:opacity-70"
+                          style={{ color: meta.accentColor }}
+                        >
+                          View Case Study <ArrowUpRight className="w-3.5 h-3.5" />
+                        </a>
+                      ) : (
+                        <span
+                          className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest opacity-30"
+                          style={{ color: meta.accentColor }}
+                        >
+                          Case Study Coming Soon
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>

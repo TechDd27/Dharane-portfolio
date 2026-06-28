@@ -51,13 +51,14 @@ export const experiences: Experience[] = [
       },
     ],
     technologies: ["Market Research", "CRM", "Communication"],
+    certificateUrl: "https://www.credential.net/2f350c0c-f6af-4239-989b-72d91f47ef0f",
   },
   {
     id: "pricol",
     company: "Pricol Limited",
     role: "Software Development Intern",
     location: "Coimbatore, India",
-    period: "Jul – Dec 2023",
+    period: "Jun – Nov 2023",
     type: "internship",
     description:
       "Automotive components manufacturer. Developed a Maintenance Chatbot prototype for field technicians, enabling self-service troubleshooting.",

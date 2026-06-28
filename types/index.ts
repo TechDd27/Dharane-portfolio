@@ -9,6 +9,7 @@ export interface Experience {
   achievements: Achievement[];
   recognition?: string;
   technologies: string[];
+  certificateUrl?: string;
 }
 
 export interface Achievement {
@@ -32,6 +33,7 @@ export interface Project {
   image: string;
   github: string;
   liveUrl: string;
+  caseStudy?: string;
   learnings: string[];
 }
 

@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { MapPin, Calendar, ChevronDown } from "lucide-react";
+import { MapPin, Calendar, ChevronDown, ExternalLink } from "lucide-react";
 import { experiences } from "../../config/experience";
 import { SectionHeading } from "../ui/SectionHeading";
 import { Badge } from "../ui/Badge";
@@ -111,8 +111,22 @@ export function Experience() {
                       </div>
                     )}
 
-                    <div className="flex flex-wrap gap-2 mt-4">
-                      {exp.technologies.map((t) => <Badge key={t} variant="outline">{t}</Badge>)}
+                    <div className="flex flex-wrap items-center justify-between gap-2 mt-4">
+                      <div className="flex flex-wrap gap-2">
+                        {exp.technologies.map((t) => <Badge key={t} variant="outline">{t}</Badge>)}
+                      </div>
+                      {exp.certificateUrl && (
+                        <a
+                          href={exp.certificateUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest transition-opacity hover:opacity-70"
+                          style={{ color: "hsl(var(--accent))" }}
+                        >
+                          View Certificate <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
                     </div>
                   </motion.div>
                 )}
