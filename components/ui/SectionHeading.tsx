@@ -45,7 +45,7 @@ export function SectionHeading({ title, subtitle, number, align = "left" }: Sect
         whileInView={{ scaleX: 1, opacity: 1 }}
         viewport={{ once: true }}
         transition={{ delay: 0.18, duration: 0.5 }}
-        className={`mt-5 h-px gold-rule ${isCenter ? "mx-auto max-w-[120px]" : "max-w-[80px]"}`}
+        className={`mt-5 h-px gold-rule ${isCenter ? "mx-auto max-w-[200px]" : "max-w-[160px]"}`}
       />
     </div>
   );
